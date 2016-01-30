@@ -29,11 +29,23 @@ using namespace std;
 // read
 // ----
 
-TEST(CollatzFixture, read) {
+TEST(CollatzFixture, read_1) {
     string s("1 10\n");
     const pair<int, int> p = collatz_read(s);
     ASSERT_EQ( 1, p.first);
     ASSERT_EQ(10, p.second);}
+
+TEST(CollatzFixture, read_2) {
+    string s("100 200 300\n");
+    const pair<int, int> p = collatz_read(s);
+    ASSERT_EQ(100, p.first);
+    ASSERT_EQ(200, p.second);}
+
+TEST(CollatzFixture, read_3) {
+    string s("201 210\n");
+    const pair<int, int> p = collatz_read(s);
+    ASSERT_EQ(201, p.first);
+    ASSERT_EQ(210, p.second);}
 
 // ----
 // eval
@@ -59,20 +71,42 @@ TEST(CollatzFixture, eval_4) {
 // print
 // -----
 
-TEST(CollatzFixture, print) {
+TEST(CollatzFixture, print_1) {
     ostringstream w;
     collatz_print(w, 1, 10, 20);
     ASSERT_EQ("1 10 20\n", w.str());}
+
+TEST(CollatzFixture, print_2) {
+    ostringstream w;
+    collatz_print(w, 100, 200, 125);
+    ASSERT_EQ("100 200 125\n", w.str());}
+
+TEST(CollatzFixture, print_3) {
+    ostringstream w;
+    collatz_print(w, 201, 210, 89);
+    ASSERT_EQ("201 210 89\n", w.str());}
 
 // -----
 // solve
 // -----
 
-TEST(CollatzFixture, solve) {
+TEST(CollatzFixture, solve_1) {
     istringstream r("1 10\n100 200\n201 210\n900 1000\n");
     ostringstream w;
     collatz_solve(r, w);
     ASSERT_EQ("1 10 20\n100 200 125\n201 210 89\n900 1000 174\n", w.str());}
+
+TEST(CollatzFixture, solve_2) {
+    istringstream r("450 350\n700 850\n100 100\n23500 34400\n");
+    ostringstream w;
+    collatz_solve(r, w);
+    ASSERT_EQ("450 350 134\n700 850 171\n100 100 26\n23500 34400 311\n", w.str());}
+
+TEST(CollatzFixture, solve_3) {
+    istringstream r("5 5 98\n999 1212 75\n342 429 23\n");
+    ostringstream w;
+    collatz_solve(r, w);
+    ASSERT_EQ("5 5 6\n999 1212 182\n342 429 134\n", w.str());}
 
 /*
 % g++ -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Collatz.c++ TestCollatz.c++ -o TestCollatz -lgtest -lgtest_main -lpthread
