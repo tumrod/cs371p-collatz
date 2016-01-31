@@ -35,12 +35,10 @@ int cycle_length (int n) {
     int c = 1;
 
     while (n > 1) {
-
         if ((n % 2) == 0)
             n = (n / 2);
         else
             n = (3 * n) + 1;
-
         ++c;
     }
 
@@ -55,12 +53,13 @@ int collatz_eval (int i, int j) {
     assert(i > 0);
     assert(j > 0);
     int max_cycle_length = 1;
-    
-    if (i > j) {
-        int temp = i;
-        i = j;
-        j = temp;
-    }
+
+    if (i > j)
+        swap(i, j);
+
+    int mid_range = j/2 + 1;
+    if (mid_range > i)
+        i = mid_range;
 
     for (int n = i; n < j+1; ++n) {
         int cycle_len = cycle_length(n);
@@ -70,7 +69,6 @@ int collatz_eval (int i, int j) {
     }
     assert(max_cycle_length > 0);
     return max_cycle_length;}
-
 // -------------
 // collatz_print
 // -------------
