@@ -15,6 +15,7 @@
 #include <utility>  // make_pair, pair
 using namespace std;
 
+int cache[1000001] = { 0 };
 // ------------
 // collatz_read
 // ------------
@@ -27,48 +28,65 @@ pair<int, int> collatz_read (const string& s) {
     return make_pair(i, j);}
 
 // ------------
-// cycle_length
-// ------------
-
-int cycle_length (int n) {
-    assert(n > 0);
-    int c = 1;
-
-    while (n > 1) {
-        if ((n % 2) == 0)
-            n = (n / 2);
-        else
-            n = (3 * n) + 1;
-        ++c;
-    }
-
-    assert(c > 0);
-    return c;}
-
-// ------------
 // collatz_eval
 // ------------
-
 int collatz_eval (int i, int j) {
     assert(i > 0);
     assert(j > 0);
-    int max_cycle_length = 1;
 
-    if (i > j)
+    if (i > j) {
         swap(i, j);
+    }
 
     int mid_range = j/2 + 1;
     if (mid_range > i)
         i = mid_range;
 
-    for (int n = i; n < j+1; ++n) {
-        int cycle_len = cycle_length(n);
-        if(cycle_len > max_cycle_length) {
-            max_cycle_length = cycle_len;
+    int max_cycle_len = 0;
+
+    for (i = i; i < j+1; ++i) {
+        int c = 1;
+        int index = i;
+        unsigned long n = i;
+
+        if (n <= 1000000 && cache[n] != 0) {
+            c = cache[n];
+        } else {
+            while (n > 1) {
+                // printf("n = %d\t c= %d\n", n, c);
+                if (n%2 == 0) {
+                    n = (n/2);
+                    // printf("even n = %llu\n", n);
+                }
+                else {
+                    n = (3 * n) + 1;
+                    // printf("odd n = %llu\n", n);
+                }
+                if (n <= 1000000 and cache[n] != 0) {
+                    c += cache[n];
+                    break;
+                }
+                ++c;
+            }
+        }
+        
+        //printf("cache[%d] = %d\n", index, c);
+
+        assert(c > 0);
+        cache[index] = c;
+
+        //max_cycle_len = max(max_cycle_len, c);
+        if (c > max_cycle_len) {
+            max_cycle_len = c;
+            //printf("cache[%d] = %d\n", index, c);
         }
     }
-    assert(max_cycle_length > 0);
-    return max_cycle_length;}
+
+    return max_cycle_len;
+}
+
+
+
 // -------------
 // collatz_print
 // -------------
