@@ -1,0 +1,95 @@
+commit bf1ea63be11fe0962702a7d17bafecf3a708ddd2
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Thu Feb 4 21:12:28 2016 -0600
+
+    update TestCollatz
+
+commit effd3353c6083f254d4e6ad5e467f482e954c0ca
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Thu Feb 4 20:58:31 2016 -0600
+
+    edit the acceptance tests
+
+commit 4cd04816ec473a62bb8e39f169ba1cadf9d87bae
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Thu Feb 4 20:57:09 2016 -0600
+
+    write more unit tests for cache functions closed #17
+
+commit f324c61487eadd1d2dce116bccdd6ab222ef89ee
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Thu Feb 4 20:15:25 2016 -0600
+
+    fix the header file, closed #18
+
+commit e7493b904d27deb435f6b3f5a0dbf068b067a5bc
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Thu Feb 4 19:27:16 2016 -0600
+
+    implemented simple cache closed #11,adding flag closed #12
+
+commit bcef8ec9345a98f2b5145861b6e6edd2da475183
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Thu Feb 4 13:01:03 2016 -0600
+
+    Acceptance tests, closed #9, closed #10
+
+commit 550fd1843df0e8369c8c9638eb538e9aa1e0276f
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Sun Jan 31 14:49:11 2016 -0600
+
+    implemented simple cache
+
+commit de030bb3b4073219bf52f69993e885dd5b9c150c
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Sat Jan 30 16:14:09 2016 -0600
+
+    submit to sphere with time limit exceeded closes #8
+
+commit bfbb956ea8a9773bc3174f1aa40305aa6d04bbd2
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Sat Jan 30 13:45:54 2016 -0600
+
+    edit makefile to cs371p-spring-2016/collatz-tests
+
+commit e335aaf9da7a6a49d44cca06704a64b4f9af2b92
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Sat Jan 30 13:39:38 2016 -0600
+
+    Implement and debug the simplest possible solution in collatz_eval() in Collatz.h and Collatz.c++ closes #7
+
+commit 039bae6d13710b31a0138de5c0346ba96bd59057
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Sat Jan 30 13:04:45 2016 -0600
+
+    write more unit tests closes #6
+
+commit ed8dd24bf422e9dd660d30da93959f95a9865823
+Author: tumrod <tipparat.umrod@utexas.edu>
+Date:   Sat Jan 30 12:56:29 2016 -0600
+
+    Fix the given unit tests, confirm the expected failures closes #1, closes #2, closes #4, closes #5
+
+commit 7736885724af46d9fcd53c42ab96f3c00529f7a0
+Author: tipparat umrod <tipparat.umrod@utexas.edu>
+Date:   Mon Jan 25 12:54:58 2016 -0600
+
+    added .travis.yml and .gitignore
+
+commit ff07152092ed31655b61301b80d882393bbd9904
+Author: tipparat umrod <tipparat.umrod@utexas.edu>
+Date:   Mon Jan 25 12:48:45 2016 -0600
+
+    connecting dev to travisCI
+
+commit c78ada377836dd668a259ea422fcd7693a8dd7a2
+Author: tipparat umrod <tipparat.umrod@utexas.edu>
+Date:   Mon Jan 25 12:46:09 2016 -0600
+
+    initial files
+
+commit 0a6f4f306bff35bf5664a656199e09dbef20e705
+Author: Tipparat Umrod <tumrod@users.noreply.github.com>
+Date:   Mon Jan 25 12:26:07 2016 -0600
+
+    Initial commit
