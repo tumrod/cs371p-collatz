@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include "Collatz.h"
 
-// #define CACHE
+#define CACHE
 
 using namespace std;
 
