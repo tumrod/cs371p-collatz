@@ -35,12 +35,29 @@ pair<int, int> collatz_read (const string& s) {
     return make_pair(i, j);}
 
 // ------------
+// cycle_length
+// ------------
+int cycle_length (unsigned long long n) {
+    assert(n > 0);
+    int c = 1;
+    while (n > 1) {
+        if ((n % 2) == 0)
+            n = (n / 2);
+        else
+            n = (3 * n) + 1;
+        ++c;
+    }
+    assert(c > 0);
+    return c;
+}
+
+// ------------
 // collatz_eval
 // ------------
 
 int collatz_eval (int i, int j) {
-    assert(i > 0);
-    assert(j > 0);
+    assert(i > 0 && i < 1000001);
+    assert(j > 0 && j < 1000001);
 
     if (i > j) {
         swap(i, j);
@@ -50,33 +67,43 @@ int collatz_eval (int i, int j) {
     if (mid_range > i)
         i = mid_range;
 
-    int max_cycle_len = 0;
+    int max_cycle_len = 1;
 
-    for (i = i; i < j+1; ++i) {
-        int c = 1;
-        int index = i;
-        unsigned long long n = i;
+    #ifdef CACHE
+        for (i = i; i < j+1; ++i) {
+            int c = 1;        
+            int index = i;
+            unsigned long long n = i;
+            if (cache_array[n] != 0) {
+                c = cache_array[int(n)];
+            } else {
+                while (n > 1) {
+                    if (n%2 == 0)
+                        n = (n/2);
+                    else
+                        n = (3 * n) + 1;
 
-        if (n <= 1000000 && cache_array[n] != 0) {
-            c = cache_array[int(n)];
-        } else {
-            while (n > 1) {
-                if (n%2 == 0)
-                    n = (n/2);
-                else
-                    n = (3 * n) + 1;
-
-                if (n <= 1000000 and cache_array[int(n)] != 0) {
-                    c += cache_array[int(n)];
-                    break;
+                    if (n <= 1000000 and cache_array[int(n)] != 0) {
+                        c += cache_array[int(n)];
+                        break;
+                    }
+                    ++c;
                 }
-                ++c;
             }
+            cache_array[index] = c;
+
+            assert(c > 0);
+            max_cycle_len = max(max_cycle_len, c);
         }
-        assert(c > 0);
-        cache_array[index] = c;
-        max_cycle_len = max(max_cycle_len, c);
-    }
+    #else
+        for (int index = i; index < j+1; ++index) {
+            unsigned long long n = index;
+            int cycle_len = cycle_length(n);
+            if(cycle_len > max_cycle_len)
+                max_cycle_len = cycle_len;
+        }
+    #endif
+
     assert(max_cycle_len > 0);
     return max_cycle_len;
 }
@@ -87,17 +114,17 @@ int collatz_eval (int i, int j) {
 
 int meta_cache_helper (int i, int j, int cache_range[], int val) {
     assert(i <= j);
+    
     int max_cycle_len = 1;
-
     int start = (i/val) + 1;
     int end = j/val;
 
     max_cycle_len = max(max_cycle_len, collatz_eval (i, start*val));
     max_cycle_len = max(max_cycle_len, collatz_eval (end*val, j));
 
-    for (int index = start; index < end; ++index) {
+    for (int index = start; index < end; ++index)
         max_cycle_len = max(max_cycle_len, cache_range[index]);
-    }
+
     assert(max_cycle_len > 0);
     return max_cycle_len;
 }
@@ -154,9 +181,15 @@ void collatz_solve (istream& r, ostream& w) {
             const int            v = collatz_eval(i, j);
         #endif
         collatz_print(w, i, j, v);
-    }}
+    }
+}
+
+// ----
+// main
+// ----
 
 int main () {
     using namespace std;
     collatz_solve(cin, cout);
-    return 0;}
+    return 0;
+}
