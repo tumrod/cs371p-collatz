@@ -28,6 +28,7 @@ using namespace std;
  */
 pair<int, int> collatz_read (const string& s);
 
+
 // ------------
 // cycle_length
 // ------------
@@ -36,7 +37,7 @@ pair<int, int> collatz_read (const string& s);
  * @param n an input int
  * @return the cycle length n
  */
-int cycle_length (int n);
+int cycle_length (unsigned long long n);
 
 
 // ------------
@@ -50,6 +51,36 @@ int cycle_length (int n);
  */
 int collatz_eval (int i, int j);
 
+
+// -----------------
+// meta_cache_helper
+// -----------------
+
+/**
+* @param i          the beginning of the range, inclusive
+* @param j          the end       of the range, inclusive
+* @param cache_rang the meta-cache array of either LESS_THAN_1000 or MORE_THAN_1000
+* @param val        the increment value, either by 100 or by 1000
+* @return the max cycle length with using meta cache
+*/
+
+int meta_cache_helper (int i, int j, int cache_range[], int val);
+
+
+// -------------
+// collatz_cache
+// -------------
+
+/**
+* filter the category of meta cache
+* @param i          the beginning of the range, inclusive
+* @param j          the end       of the range, inclusive
+* @return the max cycle length which is a result from the helper
+*/
+
+int collatz_cache (int i, int j);
+
+
 // -------------
 // collatz_print
 // -------------
@@ -61,7 +92,9 @@ int collatz_eval (int i, int j);
  * @param j the end       of the range, inclusive
  * @param v the max cycle length
  */
+
 void collatz_print (ostream& w, int i, int j, int v);
+
 
 // -------------
 // collatz_solve
