@@ -14,9 +14,9 @@
 #include <string>   // getline, string
 #include <utility>  // make_pair, pair
 #include <stdio.h>
-
 #include "Collatz.h"
-#define CACHE
+
+// #define CACHE
 
 using namespace std;
 
@@ -38,7 +38,7 @@ pair<int, int> collatz_read (const string& s) {
 // ------------
 // cycle_length
 // ------------
-int cycle_length (int n) {
+int cycle_length (unsigned long long n) {
     assert(n > 0);
     int c = 1;
     while (n > 1) {
@@ -68,13 +68,12 @@ int collatz_eval (int i, int j) {
     if (mid_range > i)
         i = mid_range;
 
-    int max_cycle_len = 0;
+    int max_cycle_len = 1;
 
-    for (i = i; i < j+1; ++i) {
-        int c = 1;
-        int index = i;
-
-        #ifdef CACHE
+    #ifdef CACHE
+        for (i = i; i < j+1; ++i) {
+            int c = 1;        
+            int index = i;
             unsigned long long n = i;
             if (cache_array[n] != 0) {
                 c = cache_array[int(n)];
@@ -93,12 +92,19 @@ int collatz_eval (int i, int j) {
                 }
             }
             cache_array[index] = c;
-        #else
-            c = cycle_length(i);
-        #endif
-        assert(c > 0);
-        max_cycle_len = max(max_cycle_len, c);
-    }
+
+            assert(c > 0);
+            max_cycle_len = max(max_cycle_len, c);
+        }
+    #else
+        for (int index = i; index < j+1; ++index) {
+            unsigned long long n = index;
+            int cycle_len = cycle_length(n);
+            if(cycle_len > max_cycle_len)
+                max_cycle_len = cycle_len;
+        }
+    #endif
+
     assert(max_cycle_len > 0);
     return max_cycle_len;
 }
@@ -116,10 +122,10 @@ int meta_cache_helper (int i, int j, int cache_range[], int val) {
 
     max_cycle_len = max(max_cycle_len, collatz_eval (i, start*val));
     max_cycle_len = max(max_cycle_len, collatz_eval (end*val, j));
-
     for (int index = start; index < end; ++index) {
         max_cycle_len = max(max_cycle_len, cache_range[index]);
     }
+
     assert(max_cycle_len > 0);
     return max_cycle_len;
 }

@@ -16,6 +16,9 @@
 #include <utility>  // pair
 
 using namespace std;
+extern int cache_array[1000001];
+extern int LESS_THAN_1000[10];
+extern int MORE_THAN_1000[1000];
 
 // ------------
 // collatz_read
